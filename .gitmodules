@@ -1,3 +1,3 @@
 [submodule "wiegand"]
 	path = wiegand
-	url = git@github.com:monkeyboard/Wiegand-Protocol-Library-for-Arduino.git
+	url = https://github.com/monkeyboard/Wiegand-Protocol-Library-for-Arduino.git
