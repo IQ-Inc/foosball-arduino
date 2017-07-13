@@ -1,4 +1,5 @@
 #include "Arduino.h"
+#include "messages.h"
 
 #define ANALOG_INPUTS     1
 
