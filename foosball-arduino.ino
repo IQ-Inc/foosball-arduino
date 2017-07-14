@@ -6,8 +6,7 @@
 
 WIEGAND  wg;
 int ins[6];   // Cannot exceed 6 analog inputs 
-bool triggered = false;
-static constexpr int THRESHOLD = 22;
+static constexpr int THRESHOLD = 900;
 int count = 0;
 
 
@@ -16,10 +15,10 @@ constexpr char BlackGoalSignal  = 'B';
 constexpr char YellowDropSignal = 'C';
 constexpr char BlackDropSignal  = 'D'; 
 
-constexpr int YellowGoalPin = 0;
-constexpr int BlackGoalPin  = 1;
-constexpr int YellowDropPin = 2;
-constexpr int BlackDropPin  = 3;
+constexpr int YellowGoalPin = 0; // 1010
+constexpr int BlackDropPin  = 1; // 10101
+constexpr int YellowDropPin  = 2; //1010
+constexpr int BlackGoalPin  = 3; //
 
 void setup()
 {
@@ -37,12 +36,10 @@ void loop()
   }
 
   for (int j = 0; j < ANALOG_INPUTS; ++j) {
-    if (ins[j] < THRESHOLD && !triggered)
+    if (ins[j] > THRESHOLD)// && !triggered)
     {
       
-      triggered = true;
-
-      switch(ins[j]){
+      switch(j){
 
         case YellowGoalPin:
           Serial.print("");
@@ -73,14 +70,13 @@ void loop()
         
       }
     }
-    
-    if((wg.available()))
+  }
+  
+  if(wg.available())
     {
-      triggered = false;
       Serial.print("S");
       Serial.print(wg.getCode(),HEX);
       Serial.print("F");
     }
-  }
 }
 
