@@ -1,5 +1,4 @@
 #include "Arduino.h"
-#include "messages.h"
 #include <Wiegand.h>
 
 #define ANALOG_INPUTS     4
