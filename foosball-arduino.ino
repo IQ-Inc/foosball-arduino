@@ -1,6 +1,6 @@
 #include "Arduino.h"
 #include "messages.h"
-#include <Wiegand.h>
+#include "wiegand/Wiegand.h"
 
 #define ANALOG_INPUTS     4
 
@@ -10,10 +10,10 @@ static constexpr int THRESHOLD = 900;
 int count = 0;
 
 
-char YellowGoalSignal[] = ´GG´;
-char BlackGoalSignal[]  = ´BG´;
-char YellowDropSignal[] = ´GD´;
-char BlackDropSignal[]  = ´BD´; 
+const char* const YellowGoalSignal = "GG";
+const char* const BlackGoalSignal  = "BG";
+const char* const YellowDropSignal = "GD";
+const char* const BlackDropSignal  = "BD"; 
 
 constexpr int YellowGoalPin = 0; // 1010
 constexpr int BlackDropPin  = 1; // 10101
