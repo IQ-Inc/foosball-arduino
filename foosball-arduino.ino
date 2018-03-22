@@ -17,10 +17,10 @@ constexpr int BlackDropPin   = 1; // 10101
 constexpr int YellowDropPin  = 2; //1010
 constexpr int BlackGoalPin   = 3; //
 
-constexpr int DyellowGoalPin = 7;
-constexpr int DblackGoalPin  = 6;
-constexpr int DyellowDropPin = 5;
-constexpr int DblackDropPin  = 4;
+constexpr int DyellowGoalPin = 2;
+constexpr int DblackGoalPin  = 3;
+constexpr int DyellowDropPin = 4;
+constexpr int DblackDropPin  = 5;
 
 constexpr int EventDelay = 250;// Time in ms between registering consecutive goals
 void setup()
@@ -52,12 +52,12 @@ void blackGoalHandler()
 // Since we only have two interrupts poll the ball drops 
 void checkForBallDrops()
 {
-  if(!digitalRead(BlackDropPin))
+  if(!digitalRead(DblackDropPin))
   {
     ins[BlackDropPin] = THRESHOLD + 1;
   }
 
-  if(!digitalRead(YellowDropPin))
+  if(!digitalRead(DyellowDropPin))
   {
     ins[YellowDropPin] = THRESHOLD + 1;
   }
@@ -86,18 +86,22 @@ void loop()
 
 					case YellowGoalPin:
 						Serial.println(YellowGoalSignal);
+           ins[j] = 0;
 						break;
 
 					case BlackGoalPin:
 						Serial.println(BlackGoalSignal);
+            ins[j] = 0;
 						break;
 
 					case YellowDropPin:
 						Serial.println(YellowDropSignal);
+           ins[j] = 0;
 						break;
 
 					case BlackDropPin:
 						Serial.println(BlackDropSignal);
+            ins[j] = 0;
 						break; 
 
 					default:
@@ -110,3 +114,4 @@ void loop()
 		}
 	}
 }
+

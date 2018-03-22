@@ -185,3 +185,4 @@ bool WIEGAND::DoWiegandConversion ()
 	else
 		return false;
 }
+

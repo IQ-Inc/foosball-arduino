@@ -7,3 +7,4 @@ constexpr char DROP_BLACK   = 2;
 constexpr char DROP_YELLOW  = 3;
 
 #endif
+
