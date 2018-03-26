@@ -3,9 +3,9 @@
 
 int count = 0;
 
-
 volatile unsigned char sensors = 0;
 
+// Masks that can be used to check for sensors
 enum class Masks : unsigned char {
 	yellowGoal = 0x01;
 	blackGoal  = 0x02;
@@ -13,33 +13,33 @@ enum class Masks : unsigned char {
 	blackDrop  = 0x08;
 }
 
-// Individual signals
-const char* const YellowGoalSignal  = "YG"; // 1
-const char* const BlackGoalSignal   = "BG"; // 2
-const char* const YellowDropSignal  = "YD"; // 4
-const char* const BlackDropSignal   = "BD"; // 8
-
-// Double/Half Signals
-const char* const DoubleDropSignal    = "DD"; // both drops
-const char* const DoubleGoalSignal    = "DG"; // both goals
-const char* const DoubleYellowSignal  = "DY"; // yellow drop and yellow goal
-const char* const DoubleBlackSignal   = "DB"; // black drop and black goal
-const char* const HalfYellowSignal    = "HY"; // yellow drop and black goal
-const char* const HalfBlackSignal     = "HB"; // black drop and yellow goal
-
-// Triple Signals
-const char* const YellowGoalTripleSignal = "YT"; // yellow goal and both drops
-const char* const BlackGoalTripleSignal  = "BT"; // black goal and both drops
-const char* const YellowDropTripleSignal = "TY"; // yellow drop and both goals
-const char* const BlackDropTripleSignal  = "TB"; // black drop and both goals
-
-// Quadruple Signal
-const char* const AllSensorsSignal = "AS"; // All Sensors
-
 constexpr int yellowGoalPin = 2;
 constexpr int blackGoalPin  = 3;
 constexpr int yellowDropPin = 4;
 constexpr int blackDropPin  = 5;
+
+// Individual signals                              // | Decimal | Binary | Hex |
+const char* const YellowGoalSignal  = "YG";        // |    1    | 0b0001 | 0x1 |
+const char* const BlackGoalSignal   = "BG";        // |    2    | 0b0010 | 0x2 |
+const char* const YellowDropSignal  = "YD";        // |    4    | 0b0100 | 0x4 |
+const char* const BlackDropSignal   = "BD";        // |    8    | 0b1000 | 0x8 |
+
+// Double/Half Signals                             
+const char* const DoubleDropSignal    = "DD";      // | Decimal | Binary | Hex ||
+const char* const DoubleGoalSignal    = "DG";      // |    1    | 0b0001 | 0x1 |
+const char* const DoubleYellowSignal  = "DY";      // |    1    | 0b0001 | 0x1 |
+const char* const DoubleBlackSignal   = "DB";      // |    1    | 0b0001 | 0x1 |
+const char* const HalfYellowSignal    = "HY";      // |    1    | 0b0001 | 0x1 |
+const char* const HalfBlackSignal     = "HB";      // |    1    | 0b0001 | 0x1 |
+                                 
+// Triple Signals
+const char* const YellowGoalTripleSignal = "YT";   // |    1    | 0b0001 | 0x1 |
+const char* const BlackGoalTripleSignal  = "BT";   // |    1    | 0b0001 | 0x1 |
+const char* const YellowDropTripleSignal = "TY";   // |    1    | 0b0001 | 0x1 |
+const char* const BlackDropTripleSignal  = "TB";   // |    1    | 0b0001 | 0x1 |
+
+// Quadruple Signal
+const char* const AllSensorsSignal = "AS"; // All Sensors
 
 constexpr int EventDelay = 250;// Time in ms between registering consecutive goals
 void setup()
