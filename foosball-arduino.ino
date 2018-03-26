@@ -1,51 +1,68 @@
 #include "Arduino.h"
 #include "messages.h"
 
-#define ANALOG_INPUTS     4
-
-int ins[6];   // Cannot exceed 6 analog inputs 
-static constexpr int THRESHOLD = 900;
 int count = 0;
 
-const char* const YellowGoalSignal = "GG";
-const char* const BlackGoalSignal  = "BG";
-const char* const YellowDropSignal = "GD";
-const char* const BlackDropSignal  = "BD"; 
 
-constexpr int YellowGoalPin  = 0; // 1010
-constexpr int BlackDropPin   = 1; // 10101
-constexpr int YellowDropPin  = 2; //1010
-constexpr int BlackGoalPin   = 3; //
+volatile unsigned char sensors = 0;
 
-constexpr int DyellowGoalPin = 2;
-constexpr int DblackGoalPin  = 3;
-constexpr int DyellowDropPin = 4;
-constexpr int DblackDropPin  = 5;
+enum class Masks : unsigned char {
+	yellowGoal = 0x01;
+	blackGoal  = 0x02;
+	yellowDrop = 0x04;
+	blackDrop  = 0x08;
+}
+
+// Individual signals
+const char* const YellowGoalSignal  = "YG"; // 1
+const char* const BlackGoalSignal   = "BG"; // 2
+const char* const YellowDropSignal  = "YD"; // 4
+const char* const BlackDropSignal   = "BD"; // 8
+
+// Double/Half Signals
+const char* const DoubleDropSignal    = "DD"; // both drops
+const char* const DoubleGoalSignal    = "DG"; // both goals
+const char* const DoubleYellowSignal  = "DY"; // yellow drop and yellow goal
+const char* const DoubleBlackSignal   = "DB"; // black drop and black goal
+const char* const HalfYellowSignal    = "HY"; // yellow drop and black goal
+const char* const HalfBlackSignal     = "HB"; // black drop and yellow goal
+
+// Triple Signals
+const char* const YellowGoalTripleSignal = "YT"; // yellow goal and both drops
+const char* const BlackGoalTripleSignal  = "BT"; // black goal and both drops
+const char* const YellowDropTripleSignal = "TY"; // yellow drop and both goals
+const char* const BlackDropTripleSignal  = "TB"; // black drop and both goals
+
+// Quadruple Signal
+const char* const AllSensorsSignal = "AS"; // All Sensors
+
+constexpr int yellowGoalPin = 2;
+constexpr int blackGoalPin  = 3;
+constexpr int yellowDropPin = 4;
+constexpr int blackDropPin  = 5;
 
 constexpr int EventDelay = 250;// Time in ms between registering consecutive goals
 void setup()
 {
-	// initialize serial baud. Must be 9600 to conform
-	// with python
 	Serial.begin(115200);
 
-  pinMode(DyellowGoalPin, INPUT_PULLUP);
-  pinMode(DblackGoalPin, INPUT_PULLUP);
-  pinMode(DyellowDropPin, INPUT_PULLUP);
-  pinMode(DblackDropPin, INPUT_PULLUP);
+  pinMode(yellowGoalPin, INPUT_PULLUP);
+  pinMode(blackGoalPin, INPUT_PULLUP);
+  pinMode(yellowDropPin, INPUT_PULLUP);
+  pinMode(blackDropPin, INPUT_PULLUP);
 
-  attachInterrupt(digitalPinToInterrupt(DyellowGoalPin), yellowGoalHandler, LOW);
-  attachInterrupt(digitalPinToInterrupt(DblackGoalPin), blackGoalHandler, LOW);
+  attachInterrupt(digitalPinToInterrupt(yellowGoalPin), yellowGoalHandler, LOW);
+  attachInterrupt(digitalPinToInterrupt(blackGoalPin), blackGoalHandler, LOW);
 }
 
 void yellowGoalHandler()
 {
-  ins[YellowGoalPin] = THRESHOLD + 1;
+  
 }
 
 void blackGoalHandler()
 {
-  ins[BlackGoalPin] = THRESHOLD + 1;
+  
 }
 
 
